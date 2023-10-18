@@ -13,6 +13,7 @@ class MyStock:
         self._eps = pd.DataFrame()
         self._pe = pd.DataFrame()
         self._revenue = pd.DataFrame()
+        self._peg = 0
         # try fetching the ticker
         try:
             self.ticker_name = ticker
@@ -29,6 +30,7 @@ class MyStock:
             self.__find_eps()
             self.__calculate_pe()
             self.__find_revenue()
+            self.__calculate_peg()
 
     def get_eps(self):
         return self._eps
@@ -67,6 +69,13 @@ class MyStock:
 
     def __find_revenue(self):
         self._revenue = 4*self.ticker.quarterly_income_stmt.T['Total Revenue']
+
+    def get_peg(self):
+        return self._peg
+
+    def __calculate_peg(self):
+        self._peg = self._pe.iloc[3] / (100*(1 - self._eps.iloc[3]/self._eps.iloc[0]))
+        print(self._peg)
 
 
 
