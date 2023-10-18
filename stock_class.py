@@ -15,6 +15,8 @@ class MyStock:
         self._revenue = pd.DataFrame()
         self._peg = 0
         self._share_history = pd.DataFrame()
+        self._ps = pd.DataFrame()
+        self._der = pd.DataFrame()
 
         # try fetching the ticker
         try:
@@ -34,6 +36,8 @@ class MyStock:
             self.__find_revenue()
             self.__calculate_peg()
             self.__find_share_history()
+            self.__calculate_ps()
+            self.__calculate_der()
 
     def get_eps(self):
         return self._eps
@@ -86,6 +90,18 @@ class MyStock:
     def __find_share_history(self):
         self._share_history = self.ticker.history(interval="1d", period="1y")
 
+    def get_ps(self):
+        return self._ps
+
+    def __calculate_ps(self):
+        pass
+    
+    def get_der(self):
+        # debt equity ratio
+        return self._der
+
+    def __calculate_der(self):
+        pass
 
 if __name__ == "__main__":
     a = MyStock("TSLA")
