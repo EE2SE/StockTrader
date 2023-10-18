@@ -11,8 +11,8 @@ class MyStock:
         :param ticker: string containing the ticker name
         """
         self._eps = pd.DataFrame()
-        self._pe = 0
-
+        self._pe = pd.DataFrame()
+        self._revenue = pd.DataFrame()
         # try fetching the ticker
         try:
             self.ticker_name = ticker
@@ -28,6 +28,7 @@ class MyStock:
         else:
             self.__find_eps()
             self.__calculate_pe()
+            self.__find_revenue()
 
     def get_eps(self):
         return self._eps
@@ -61,9 +62,11 @@ class MyStock:
             else:
                 self._pe.loc[date] = data['Close'].iloc[0]/self._eps.loc[date]
 
+    def get_revenue(self):
+        return self._revenue
 
-
-
+    def __find_revenue(self):
+        self._revenue = 4*self.ticker.quarterly_income_stmt.T['Total Revenue']
 
 
 
