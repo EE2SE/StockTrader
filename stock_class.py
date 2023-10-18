@@ -14,6 +14,8 @@ class MyStock:
         self._pe = pd.DataFrame()
         self._revenue = pd.DataFrame()
         self._peg = 0
+        self._share_history = pd.DataFrame()
+
         # try fetching the ticker
         try:
             self.ticker_name = ticker
@@ -31,6 +33,7 @@ class MyStock:
             self.__calculate_pe()
             self.__find_revenue()
             self.__calculate_peg()
+            self.__find_share_history()
 
     def get_eps(self):
         return self._eps
@@ -77,9 +80,13 @@ class MyStock:
         self._peg = self._pe.iloc[3] / (100*(1 - self._eps.iloc[3]/self._eps.iloc[0]))
         print(self._peg)
 
+    def get_share_history_year(self):
+        return self._share_history
 
+    def __find_share_history(self):
+        self._share_history = self.ticker.history(interval="1d", period="1y")
 
 
 if __name__ == "__main__":
-    a = MyStock("AAPL")
+    a = MyStock("TSLA")
 
