@@ -100,7 +100,7 @@ class MyStock:
         market_cap = self.ticker.basic_info['marketCap']
         # last_revenue = self.ticker.financials.loc['Total Revenue'].iloc[0]
         self.__find_revenue()
-        self._ps = market_cap/self.get_revenue
+        self._ps = market_cap/self.get_revenue()
         pass
 
     def get_der(self):
@@ -108,7 +108,9 @@ class MyStock:
         return self._der
 
     def __calculate_der(self):
-        pass
+        total_debt = self.ticker.balance_sheet.loc["Total Debt"].iloc[0]
+        equity = self.ticker.balance_sheet.loc["Stockholders Equity"].iloc[0]
+        self._der = total_debt/equity
 
 if __name__ == "__main__":
     a = MyStock("TSLA")
