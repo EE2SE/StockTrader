@@ -94,8 +94,15 @@ class MyStock:
         return self._ps
 
     def __calculate_ps(self):
+        # The price-to-sales ratio (Price/Sales or P/S) is calculated by taking a company's market capitalization
+        # (the number of outstanding shares multiplied by the share price) and divide it by the company's total sales
+        # or revenue over the past 12 months.
+        market_cap = self.ticker.basic_info['marketCap']
+        # last_revenue = self.ticker.financials.loc['Total Revenue'].iloc[0]
+        self.__find_revenue()
+        self._ps = market_cap/self.get_revenue
         pass
-    
+
     def get_der(self):
         # debt equity ratio
         return self._der
